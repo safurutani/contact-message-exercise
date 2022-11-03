@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Main{
     private static ArrayList<Contact> contacts;
     private static Scanner scanner;
+    private static int id = 0;
     public static void main(String[] args) {
         contacts = new ArrayList<>();
         System.out.println("Greetings");
@@ -143,6 +144,80 @@ public class Main{
     }
 
     private static void manageMessages(){
+        System.out.println("Please Select One:" +
+            "\n\t1. Show all messages" +
+            "\n\t2. Send a new message" +
+            "\n\t3. Go back"
+        );
+        int choice = scanner.nextInt();
+        switch(choice){
+            case 1:
+                showAllMessages();
+                break;
+            case 2:
+                sendMessage();
+                break;
+            default:
+                showOptions();
+                break;
+        }
+    }
 
+    private static void showAllMessages() {
+        ArrayList<Message> allMessages = new ArrayList<>();
+        for(Contact c: contacts){
+            allMessages.addAll(c.getMessages());
+        }
+        if(allMessages.size()>0){
+            for(Message m: allMessages){
+                m.getInfo();
+                System.out.println("______________");
+            }
+        }
+        else{
+            System.out.println("No messages found");
+        }
+        showOptions();
+    }
+
+    private static void sendMessage() {
+        System.out.println("Who would you like to send a message?");
+        String name = scanner.next();
+        if (name.equals("")){
+            System.out.println("A name was not entered");
+            sendMessage();
+        }
+        else {
+            boolean doesExist = false;
+            for(Contact c: contacts){
+                if (c.getName().equals(name)) {
+                    doesExist = true;
+                }
+            }
+            if(!doesExist) {
+                System.out.println("No contact found");
+            }
+            else {
+                System.out.println("Type your message");
+                String text = scanner.next();
+                if (text.equals("")){
+                    System.out.print("Please enter a message");
+                    sendMessage();
+                }
+                else{
+                    id++;
+                    Message newMessage = (new Message(text, name, id));
+                    for (Contact c: contacts){
+                        ArrayList<Message> newMessages = c.getMessages();
+                        newMessages.add(newMessage);
+                        Contact currentContact = c;
+                        currentContact.setMessages((newMessages));
+                        contacts.remove(c);
+                        contacts.add(currentContact);
+                    }
+                }
+                showOptions();
+            }
+        }
     }
 }
