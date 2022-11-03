@@ -1,18 +1,22 @@
-## Getting Started
+## Basic Phone Functions - Contact List/Messages
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This exercise works with a contact class and a message class to replicate the functionality of a phone. The user can go through a menu option branch in order to accomplish specific tasks with it always defaulting back to the initial options after one is completed or if they wish to go back from a point farther down in the branch.
 
-## Folder Structure
+The menu tree looks is as follows:
 
-The workspace contains two folders by default, where:
+1. Manage Contacts
+    - Show all contacts 
+    - Add new contact
+    - Search for a contact
+    - Delete a contact
+    - Go back (to main 3)
+2. Messages
+    - Show all messages
+    - Send a new message
+    - Go back (to main 3)
+3. Quit
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Limitations
+When creating contacts, a name and number are required, but the email is optional.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Searching for a contact requires the full name to be entered.
