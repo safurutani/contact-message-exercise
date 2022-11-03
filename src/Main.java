@@ -60,19 +60,86 @@ public class Main{
     }
 
     private static void showAllContacts() {
-        
+        for(Contact c: contacts){
+            c.getInfo();
+        }
+        showOptions();
     }
     
     private static void addContact() {
-        
+        System.out.println("Please enter the contact's name:");
+        String name = scanner.next();
+        System.out.println("Please enter the contact's number:");
+        String number = scanner.next();
+        System.out.println("Please enter the contact's email:");
+        String email = scanner.next();
+
+        if (name.equals("") || number.equals("")){
+            System.out.println("Please enter both a name and number for the contact");
+            addContact();
+        }
+        else {
+            boolean doesExist = false;
+            for(Contact c: contacts){
+                if (c.getName().equals(name)) {
+                    doesExist = true;
+                }
+            }
+            if (doesExist){
+                System.out.println("A contact for" + name + " already exists");
+                addContact();
+            }
+            else{
+                Contact contact = new Contact(name,number,email);
+                contacts.add(contact);
+                System.out.println("Contact for " + name + "has been created");
+            }
+        }
+        showOptions();
     }
 
     private static void searchContact() {
-        
+        System.out.println("Please enter the name of the contact:");
+        String name = scanner.next();
+        if (name.equals("")){
+            System.out.println("A name was not entered");
+            searchContact();
+        }
+        else {
+            boolean doesExist = false;
+            for(Contact c: contacts){
+                if (c.getName().equals(name)) {
+                    doesExist = true;
+                    c.getInfo();
+                }
+            }
+            if(!doesExist) {
+                System.out.println("No contact found");
+            }
+        }
+        showOptions();
     }
 
     private static void deleteContact() {
-        
+        System.out.println("Please enter the full name of the contact:");
+        String name = scanner.next();
+        if (name.equals("")){
+            System.out.println("A name was not entered");
+            deleteContact();
+        }
+        else {
+            boolean doesExist = false;
+            for(Contact c: contacts){
+                if (c.getName().equals(name)) {
+                    doesExist = true;
+                    contacts.remove(c);
+                }
+            }
+            if(!doesExist) {
+                System.out.println("No contact found");
+            }
+        }
+        showOptions();
     }
 
     private static void manageMessages(){
